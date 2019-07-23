@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductAttributeValueTable extends Migration
+class CreateAttributeSetAttributeValueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateProductAttributeValueTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_attribute_value', function (Blueprint $table) {
+        Schema::create('attribute_set_attribute_value', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('product_id')->index();
-            $table->foreign('product_id')
+            $table->unsignedInteger('attribute_set_id')->index();
+            $table->foreign('attribute_set_id')
                 ->references('id')
-                ->on('products')
+                ->on('attribute_sets')
                 ->onDelete('cascade');
 
             $table->unsignedInteger('attribute_value_id')->index();
@@ -37,6 +37,6 @@ class CreateProductAttributeValueTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_attribute_value');
+        Schema::dropIfExists('attribute_set_attribute_value');
     }
 }
