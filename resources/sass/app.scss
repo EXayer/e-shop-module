@@ -21,6 +21,14 @@ body {
   margin-bottom: $footer-height;
 }
 
+.full-height {
+  height: 80vh;
+}
+
+.side-menu {
+  font-size: 1.5em;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

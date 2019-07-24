@@ -2,10 +2,9 @@
 @section('title', 'Tablets | E-Shop')
 
 @section('content')
-    <h1 class="text-center">Tablets</h1>
     <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
+        <div class="d-flex justify-content-center align-items-center full-height">
+            <div class="text-center">
                 @include('parts.side-menu')
             </div>
         </div>

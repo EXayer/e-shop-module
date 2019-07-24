@@ -3,9 +3,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center">Front</h1>
+        <div class="d-flex justify-content-center align-items-center full-height">
+            <div class="text-center">
+                <h1>Welcome to E-Shop</h1>
+                <a href="{{ route('product.type') }}" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Buy tablet</a>
             </div>
         </div>
     </div>

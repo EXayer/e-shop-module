@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class PagesController extends Controller
+class PagesController
 {
     public function front()
     {
@@ -13,8 +11,6 @@ class PagesController extends Controller
 
     public function productTypes()
     {
-        return view('pages.product-types', [
-
-        ]);
+        return view('pages.product-types');
     }
 }
