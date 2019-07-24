@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'PagesController@front')->name('front');
+Route::get('/tablets', 'PagesController@productTypes')->name('product.type');

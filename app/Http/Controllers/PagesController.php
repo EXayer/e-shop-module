@@ -10,4 +10,11 @@ class PagesController extends Controller
     {
         return view('pages.front');
     }
+
+    public function productTypes()
+    {
+        return view('pages.product-types', [
+
+        ]);
+    }
 }
