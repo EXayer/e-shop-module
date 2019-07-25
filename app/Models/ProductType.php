@@ -25,6 +25,8 @@ class ProductType extends Model
      */
     public function getFullProductModifications()
     {
+        $lang = config('app.locale');
+
         $query = Product::query()
             ->where('products.product_type_id', $this->id);
 
@@ -35,17 +37,23 @@ class ProductType extends Model
                 'attribute_sets.id'
             )
             ->join('attribute_values', 'attribute_values.id', 'pivot_set_value.attribute_value_id')
-            ->join('attributes', 'attributes.id', 'attribute_values.attribute_id');
+            ->join('attributes', 'attributes.id', 'attribute_values.attribute_id')
+            ->leftJoin('attribute_value_translates', function ($join) use ($lang) {
+                $join->on('attribute_value_translates.attribute_value_id', '=', 'attribute_values.id')
+                    ->join('languages', 'languages.id', 'attribute_value_translates.language_id')
+                    ->where('languages.code', $lang);
+            });
 
         $query->select(
             'products.id as product_id',
             'products.model_number',
             'attribute_sets.price',
-            'attribute_values.value as attribute_value',
+            'attribute_value_translates.value as attribute_value',
             'attribute_values.id as value_id',
             'attributes.title as attribute',
             'attributes.id as attribute_id'
-        )->orderBy('value_id');
+            )
+            ->orderBy('value_id');
 
         return $query->get();
     }

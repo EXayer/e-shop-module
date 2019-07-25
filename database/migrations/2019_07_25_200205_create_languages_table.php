@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttributeValuesTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateAttributeValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_values', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->unsignedInteger('attribute_id')->index();
-            $table->foreign('attribute_id')
-                ->references('id')
-                ->on('attributes')
-                ->onDelete('cascade');
+            $table->string('code', 2)->unique();
+            $table->string('title', 40);
         });
     }
 
@@ -31,6 +27,6 @@ class CreateAttributeValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_values');
+        Schema::dropIfExists('languages');
     }
 }

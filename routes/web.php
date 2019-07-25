@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', 'PagesController@front')->name('front');
-Route::get('/tablets', 'PagesController@productTypes')->name('product.type');
+Route::group(['middleware' => 'language'], function () {
+    Route::get('/', 'PagesController@front')->name('front');
+    Route::get('/tablets', 'PagesController@productTypes')->name('product.type');
 
-Route::get('/product/{id}', 'ProductsController@product')->name('product');
-Route::post('/product-change', 'ProductsController@productChange');
+    Route::get('/product/{id}', 'ProductsController@product')->name('product');
+    Route::post('/product-change', 'ProductsController@productChange');
+});
+
+Route::post('/set-locale', 'LocaleController@setLocale')->name('locale.set');

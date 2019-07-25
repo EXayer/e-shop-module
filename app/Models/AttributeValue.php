@@ -8,7 +8,7 @@ class AttributeValue extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['value'];
+    //protected $fillable = ['value'];
 
     /**
      * Attribute sets that belongs to attribute value

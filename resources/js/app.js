@@ -3,9 +3,9 @@ require('./bootstrap');
 function selectVariousAttribute() {
     $('.various-attributes').delegate('input', 'change', function() {
 
-        let product_type = $("input[name='product_type']").val();
-        let product_id = $(this).data('product');
-        let attr_value_id = $(this).attr('value');
+        const product_type = $("input[name='product_type']").val();
+        const product_id = $(this).data('product');
+        const attr_value_id = $(this).attr('value');
 
         $.ajax({
             url: document.location.origin + '/product-change',
@@ -32,3 +32,8 @@ function selectVariousAttribute() {
 }
 
 selectVariousAttribute();
+
+// submit lang form by radio button click
+$('input[name=lang]').change(function(){
+    $(this).closest("form").submit();
+});

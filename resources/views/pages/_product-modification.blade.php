@@ -1,17 +1,17 @@
 <div class="row">
     <div class="col-6 d-flex flex-column text-center mb-3">
-        <div class="p-2 bg-secondary text-light"><strong>Артикул</strong></div>
+        <div class="p-2 bg-secondary text-light"><strong>@lang('product.model_number')</strong></div>
         <div class="p-2 border">{{ $modification['model_number'] }}</div>
     </div>
     <div class="col-6 d-flex flex-column text-center">
-        <div class="p-2 bg-secondary text-light"><strong>Цена, $</strong></div>
+        <div class="p-2 bg-secondary text-light"><strong>@lang('product.price')</strong></div>
         <div class="p-2 border">{{ $modification['price'] }}</div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-12">
-        <h5 class="mt-4">Выберите модификацию</h5>
+        <h5 class="mt-4">@lang('product.select_modification')</h5>
         <form method="POST" action="#" class="various-attributes">
             <input type="hidden" name="product_type" value="{{ $productType->id }}">
             @foreach($various_attributes as $attribute)
@@ -33,13 +33,13 @@
 
 <div class="row">
     <div class="col-12">
-        <h5 class="mt-4">Модификации</h5>
+        <h5 class="mt-4">@lang('product.modification')</h5>
         <table class="table">
             <thead class="thead-light">
             <tr>
                 <th>#</th>
-                <th class="text-center">Характеристика</th>
-                <th class="text-center">Значение</th>
+                <th class="text-center">@lang('product.parameter')</th>
+                <th class="text-center">@lang('product.value')</th>
             </tr>
             </thead>
             <tbody>
