@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\ProductType;
 use App\Source\ProductModification;
+use Exception;
 
 class ProductsController extends Controller
 {
@@ -11,15 +13,12 @@ class ProductsController extends Controller
     {
         $productType = ProductType::where('id', $id)->firstOrFail();
 
-        //dd($productType->getFullProductModifications());
-
         $productModification = new ProductModification($productType);
         $init_modification = $productModification->getFirstModification();
 
         $productModification->distributeAttributes();
         $various_attributes = $productModification->getVariousAttributes();
         $static_attributes = $productModification->getStaticAttributes();
-        //dd($init_modification);
 
         return view('pages.product', [
             'productType' => $productType,
@@ -27,5 +26,35 @@ class ProductsController extends Controller
             'various_attributes' => $various_attributes,
             'static_attributes' => $static_attributes,
         ]);
+    }
+
+    public function productChange(Request $request)
+    {
+        $productType = ProductType::where('id', $request->get('product_type'))->first();
+
+        $productModification = new ProductModification($productType);
+        $productModification->distributeAttributes();
+
+        try {
+            $modification = $productModification->searchModification(
+                $request->get('product_id'),
+                $request->get('attr_value_id')
+            );
+        } catch (Exception $e) {
+
+            return response()->json(array(
+                'success' => false,
+                'error' => $e->getMessage()
+            ), 400);
+        }
+
+        $modification_view = view("pages._product-modification", [
+            'productType' => $productType,
+            'modification' => $modification,
+            'various_attributes' => $productModification->getVariousAttributes(),
+            'static_attributes' => $productModification->getStaticAttributes()
+        ])->render();
+
+        return response()->json(['modification_view' => $modification_view]);
     }
 }

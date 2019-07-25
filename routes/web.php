@@ -13,4 +13,6 @@
 
 Route::get('/', 'PagesController@front')->name('front');
 Route::get('/tablets', 'PagesController@productTypes')->name('product.type');
+
 Route::get('/product/{id}', 'ProductsController@product')->name('product');
+Route::post('/product-change', 'ProductsController@productChange');

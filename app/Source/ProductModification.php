@@ -93,4 +93,26 @@ class ProductModification
     {
         return $this->common_modifications;
     }
+
+    /**
+     * Search modification selected by user
+     *
+     * @param $product_id
+     * @param $attribute_value_id
+     * @return array
+     * @throws \Exception
+     */
+    public function searchModification($product_id, $attribute_value_id):array
+    {
+
+        foreach ($this->modifications as $modification) {
+            if ($modification['product_id'] == $product_id and
+                $modification['value_id'] == $attribute_value_id) {
+
+                return $modification;
+            }
+        }
+
+        throw new \Exception('Product Modification not found');
+    }
 }
