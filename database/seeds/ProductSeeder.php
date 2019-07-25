@@ -36,6 +36,7 @@ class ProductSeeder extends Seeder
             'model_number' => $product->fakeModelNumber($product_google),
         ]);
 
+
         // Product 'Microsoft Tablet'
         $product_microsoft = ProductType::create([
             'title' => 'Microsoft tablet'
@@ -59,6 +60,15 @@ class ProductSeeder extends Seeder
             'model_number' => $product->fakeModelNumber($product_microsoft),
         ]);
 
+        $product = Product::create([
+            'product_type_id' => $product_microsoft->id,
+            'attribute_set_id' => 5,
+        ]);
+
+        $product->update([
+            'model_number' => $product->fakeModelNumber($product_microsoft),
+        ]);
+
         // Product 'Apple Tablet'
         $product_apple = ProductType::create([
             'title' => 'Apple tablet'
@@ -66,7 +76,7 @@ class ProductSeeder extends Seeder
 
         $product = Product::create([
             'product_type_id' => $product_apple->id,
-            'attribute_set_id' => 5,
+            'attribute_set_id' => 6,
         ]);
 
         $product->update([
@@ -75,7 +85,16 @@ class ProductSeeder extends Seeder
 
         $product = Product::create([
             'product_type_id' => $product_apple->id,
-            'attribute_set_id' => 6,
+            'attribute_set_id' => 7,
+        ]);
+
+        $product->update([
+            'model_number' => $product->fakeModelNumber($product_apple),
+        ]);
+
+        $product = Product::create([
+            'product_type_id' => $product_apple->id,
+            'attribute_set_id' => 8,
         ]);
 
         $product->update([

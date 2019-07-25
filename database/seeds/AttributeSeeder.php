@@ -75,6 +75,7 @@ class AttributeSeeder extends Seeder
         ]);
 
         // Product Sets
+        // #1 google
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
@@ -83,6 +84,7 @@ class AttributeSeeder extends Seeder
             $storage64->id,
         ]);
 
+        // #2 google
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
@@ -91,6 +93,7 @@ class AttributeSeeder extends Seeder
             $storage128->id,
         ]);
 
+        // #3 microsoft
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
@@ -99,22 +102,23 @@ class AttributeSeeder extends Seeder
             $storage256->id,
         ]);
 
+        // #4 microsoft
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
             $grey->id,
-            $ram4->id,
+            $ram16->id,
             $storage64->id,
         ]);
 
+        // #5 microsoft
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
-            $grey->id,
-            $ram4->id,
             $storage128->id,
         ]);
 
+        // #6 apple
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
@@ -123,6 +127,7 @@ class AttributeSeeder extends Seeder
             $storage256->id,
         ]);
 
+        // #7 apple
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
@@ -131,20 +136,12 @@ class AttributeSeeder extends Seeder
             $storage64->id,
         ]);
 
+        // #8 apple
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
-            $silver->id,
             $ram8->id,
             $storage128->id,
-        ]);
-
-        AttributeSet::create([
-            'price' => rand(100, 1000),
-        ])->attributeValues()->attach([
-            $silver->id,
-            $ram16->id,
-            $storage256->id,
         ]);
     }
 }

@@ -45,7 +45,7 @@ class ProductType extends Model
             'attribute_values.id as value_id',
             'attributes.title as attribute',
             'attributes.id as attribute_id'
-        );
+        )->orderBy('value_id');
 
         return $query->get();
     }
