@@ -64,7 +64,6 @@ class ProductSeeder extends Seeder
 
         $product_google->attributeValues()->attach([
             $intel->id,
-            $camera8->id,
         ]);
 
         $product = Product::create([

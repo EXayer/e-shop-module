@@ -2,7 +2,7 @@
 @section('title', "{$productType->title} | E-Shop")
 
 @section('content')
-    <h1 class="text-center my-5">{{ $productType->title }}</h1>
+    <h1 class="text-center my-5 text-info">{{ $productType->title }}</h1>
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-xl-4">

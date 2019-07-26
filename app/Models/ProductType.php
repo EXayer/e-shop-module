@@ -85,9 +85,9 @@ class ProductType extends Model
             ->join('attribute_values', 'attribute_values.id', 'pivot_value_type.attribute_value_id')
             ->join('attributes', 'attributes.id', 'attribute_values.attribute_id')
             ->leftJoin('attribute_value_translates', function ($join) use ($lang) {
-            $join->on('attribute_value_translates.attribute_value_id', '=', 'attribute_values.id')
-                ->join('languages', 'languages.id', 'attribute_value_translates.language_id')
-                ->where('languages.code', $lang);
+                $join->on('attribute_value_translates.attribute_value_id', '=', 'attribute_values.id')
+                    ->join('languages', 'languages.id', 'attribute_value_translates.language_id')
+                    ->where('languages.code', $lang);
         });
 
         $query->select(

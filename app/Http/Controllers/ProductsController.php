@@ -15,7 +15,6 @@ class ProductsController extends Controller
 
         $productModification = new ProductModification($productType);
         $init_modification = $productModification->getFirstModification();
-
         $productModification->distributeAttributes();
 
         return view('pages.product', [

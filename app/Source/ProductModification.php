@@ -21,11 +21,11 @@ class ProductModification
     private $modifications = [];
 
     /**
-     * Unique $productType attributes
+     * Various $productType attributes
      *
      * @var array
      */
-    private $unique_modifications = [];
+    private $various_modifications = [];
 
     /**
      * Common $productType attributes
@@ -53,13 +53,36 @@ class ProductModification
      */
     public function distributeAttributes():ProductModification
     {
-        foreach ($this->modifications as $modification) {
-            if (isset($this->unique_modifications[$modification['value_id']])) {
-                $this->common_modifications[$modification['value_id']] = $modification;
-            } else {
-                $this->unique_modifications[$modification['value_id']] = $modification;
+        $single_entry = [];
+        $few_entries = [];
+
+        foreach ($this->modifications as $outer) {
+            $counter = 0;
+            foreach ($this->modifications as $inner) {
+                if ($outer['value_id'] === $inner['value_id']) {
+                    $counter++;
+                }
+            }
+            if ($counter === 1) {
+                $single_entry[$outer['value_id']] = $outer;
+            } elseif ($counter > 1) {
+                $few_entries[$outer['value_id']] = $outer;
             }
         }
+
+        foreach ($few_entries as $few) {
+            foreach ($single_entry as $single) {
+                if ($few['attribute_id'] === $single['attribute_id']) {
+                    $single_entry[$few['value_id']] = $few;
+                    unset($few_entries[$few['value_id']]);
+                    break;
+                }
+            }
+        }
+
+        ksort($single_entry);
+        $this->common_modifications = $few_entries;
+        $this->various_modifications = $single_entry;
 
         return $this;
     }
@@ -81,7 +104,7 @@ class ProductModification
      */
     public function getVariousAttributes():array
     {
-        return array_diff_key($this->unique_modifications, $this->common_modifications);
+        return $this->various_modifications;
     }
 
     /**
@@ -104,7 +127,6 @@ class ProductModification
      */
     public function searchModification($product_id, $attribute_value_id):array
     {
-
         foreach ($this->modifications as $modification) {
             if ($modification['product_id'] == $product_id and
                 $modification['value_id'] == $attribute_value_id) {

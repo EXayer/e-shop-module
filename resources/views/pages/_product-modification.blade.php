@@ -11,10 +11,15 @@
 
 <div class="row">
     <div class="col-12">
-        <h5 class="mt-4">@lang('product.select_modification')</h5>
+        <h5 class="mt-4 text-info">@lang('product.select_modification')</h5>
         <form method="POST" action="#" class="various-attributes">
             <input type="hidden" name="product_type" value="{{ $productType->id }}">
             @foreach($various_attributes as $attribute)
+                @if (!isset($previous) or $attribute['attribute'] !== $previous['attribute'])
+                    <div>
+                        <span class="pr-1"><strong>{{ $attribute['attribute'] }}:</strong></span>
+                    </div>
+                @endif
                 <div class="form-check form-check-inline">
                     <input data-product="{{ $attribute['product_id'] }}"
                            class="form-check-input"
@@ -25,6 +30,7 @@
                            @if($modification['product_id'] === $attribute['product_id']) checked @endif>
                     <label class="form-check-label" for="attr-{{ $attribute['value_id'] }}">
                         {{ $attribute['attribute_value'] }}</label>
+                    @php $previous = $attribute; @endphp
                 </div>
             @endforeach
         </form>
@@ -33,7 +39,7 @@
 
 <div class="row">
     <div class="col-12">
-        <h5 class="mt-4">@lang('product.modification')</h5>
+        <h5 class="mt-4 text-info">@lang('product.modification')</h5>
         <table class="table">
             <thead class="thead-light">
             <tr>
