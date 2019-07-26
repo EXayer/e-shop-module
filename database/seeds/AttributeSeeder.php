@@ -215,6 +215,8 @@ class AttributeSeeder extends Seeder
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
+            $grey->id,
+            $ram16->id,
             $storage128->id,
         ]);
 
@@ -240,6 +242,7 @@ class AttributeSeeder extends Seeder
         AttributeSet::create([
             'price' => rand(100, 1000),
         ])->attributeValues()->attach([
+            $golden->id,
             $ram8->id,
             $storage128->id,
         ]);

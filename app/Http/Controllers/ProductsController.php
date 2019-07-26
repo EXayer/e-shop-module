@@ -17,14 +17,13 @@ class ProductsController extends Controller
         $init_modification = $productModification->getFirstModification();
 
         $productModification->distributeAttributes();
-        $various_attributes = $productModification->getVariousAttributes();
-        $static_attributes = $productModification->getStaticAttributes();
 
         return view('pages.product', [
             'productType' => $productType,
             'init_modification' => $init_modification,
-            'various_attributes' => $various_attributes,
-            'static_attributes' => $static_attributes,
+            'various_attributes' => $productModification->getVariousAttributes(),
+            'static_attributes' => $productModification->getStaticAttributes(),
+            'type_attributes' => $productType->getCommonAttributes(),
         ]);
     }
 
@@ -52,7 +51,8 @@ class ProductsController extends Controller
             'productType' => $productType,
             'modification' => $modification,
             'various_attributes' => $productModification->getVariousAttributes(),
-            'static_attributes' => $productModification->getStaticAttributes()
+            'static_attributes' => $productModification->getStaticAttributes(),
+            'type_attributes' => $productType->getCommonAttributes(),
         ])->render();
 
         return response()->json(['modification_view' => $modification_view]);

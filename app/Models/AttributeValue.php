@@ -8,8 +8,6 @@ class AttributeValue extends Model
 {
     public $timestamps = false;
 
-    //protected $fillable = ['value'];
-
     /**
      * Attribute sets that belongs to attribute value
      */
@@ -24,5 +22,13 @@ class AttributeValue extends Model
     public function attribute()
     {
         return $this->belongsTo('App\Models\Attribute');
+    }
+
+    /**
+     * ProductType that belongs to attribute value
+     */
+    public function productType()
+    {
+        return $this->belongsToMany('App\Models\ProductType');
     }
 }

@@ -3,6 +3,9 @@
 use Illuminate\Database\Seeder;
 use App\Models\ProductType;
 use App\Models\Product;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
+use App\Models\AttributeValueTranslate;
 
 class ProductSeeder extends Seeder
 {
@@ -13,9 +16,55 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        // Common Attributes
+        $attr_proc = Attribute::create([
+            'title' => 'Processor'
+        ]);
+
+        $intel = AttributeValue::create([
+            'attribute_id' => $attr_proc->id,
+        ]);
+
+        AttributeValueTranslate::create([
+            'language_id' => 1,
+            'attribute_value_id' => $intel->id,
+            'value' => 'Intel Atom'
+        ]);
+
+        AttributeValueTranslate::create([
+            'language_id' => 2,
+            'attribute_value_id' => $intel->id,
+            'value' => 'Интел Atom'
+        ]);
+
+        $attr_camera = Attribute::create([
+            'title' => 'Camera'
+        ]);
+
+        $camera8 = AttributeValue::create([
+            'attribute_id' => $attr_camera->id,
+        ]);
+
+        AttributeValueTranslate::create([
+            'language_id' => 1,
+            'attribute_value_id' => $camera8->id,
+            'value' => '8Mpx'
+        ]);
+
+        AttributeValueTranslate::create([
+            'language_id' => 2,
+            'attribute_value_id' => $camera8->id,
+            'value' => '8Мп'
+        ]);
+
         // Product 'Google Tablet'
         $product_google = ProductType::create([
             'title' => 'Google tablet'
+        ]);
+
+        $product_google->attributeValues()->attach([
+            $intel->id,
+            $camera8->id,
         ]);
 
         $product = Product::create([
@@ -41,6 +90,12 @@ class ProductSeeder extends Seeder
         $product_microsoft = ProductType::create([
             'title' => 'Microsoft tablet'
         ]);
+
+        $product_microsoft->attributeValues()->attach([
+            $intel->id,
+            $camera8->id,
+        ]);
+
 
         $product = Product::create([
             'product_type_id' => $product_microsoft->id,
@@ -72,6 +127,11 @@ class ProductSeeder extends Seeder
         // Product 'Apple Tablet'
         $product_apple = ProductType::create([
             'title' => 'Apple tablet'
+        ]);
+
+        $product_apple->attributeValues()->attach([
+            $intel->id,
+            $camera8->id,
         ]);
 
         $product = Product::create([

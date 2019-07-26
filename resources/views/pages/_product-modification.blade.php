@@ -43,11 +43,19 @@
             </tr>
             </thead>
             <tbody>
+            @php $attr_counter = 0; @endphp
             @foreach($static_attributes as $attribute)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ ++$attr_counter }}</td>
                     <td class="text-center"><strong>{{ $attribute['attribute'] }}</strong></td>
                     <td class="text-center">{{ $attribute['attribute_value'] }}</td>
+                </tr>
+            @endforeach
+            @foreach($type_attributes as $attribute)
+                <tr>
+                    <td>{{ ++$attr_counter }}</td>
+                    <td class="text-center"><strong>{{ $attribute->attribute }}</strong></td>
+                    <td class="text-center">{{ $attribute->attribute_value }}</td>
                 </tr>
             @endforeach
             </tbody>

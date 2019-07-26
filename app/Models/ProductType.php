@@ -19,6 +19,14 @@ class ProductType extends Model
     }
 
     /**
+     * Attribute values that belongs to product type
+     */
+    public function attributeValues()
+    {
+        return $this->belongsToMany('App\Models\AttributeValue');
+    }
+
+    /**
      * Select all related data to the ProductType
      *
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
@@ -52,7 +60,42 @@ class ProductType extends Model
             'attribute_values.id as value_id',
             'attributes.title as attribute',
             'attributes.id as attribute_id'
-            )
+        )
+            ->orderBy('value_id');
+
+        return $query->get();
+    }
+
+    /**
+     * Selects common attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getCommonAttributes()
+    {
+        $lang = config('app.locale');
+
+        $query = ProductType::query()->where('product_types.id', $this->id);
+
+        $query->join(
+            'attribute_value_product_type as pivot_value_type',
+            'pivot_value_type.product_type_id',
+            'product_types.id'
+        )
+            ->join('attribute_values', 'attribute_values.id', 'pivot_value_type.attribute_value_id')
+            ->join('attributes', 'attributes.id', 'attribute_values.attribute_id')
+            ->leftJoin('attribute_value_translates', function ($join) use ($lang) {
+            $join->on('attribute_value_translates.attribute_value_id', '=', 'attribute_values.id')
+                ->join('languages', 'languages.id', 'attribute_value_translates.language_id')
+                ->where('languages.code', $lang);
+        });
+
+        $query->select(
+            'attribute_value_translates.value as attribute_value',
+            'attribute_values.id as value_id',
+            'attributes.title as attribute',
+            'attributes.id as attribute_id'
+        )
             ->orderBy('value_id');
 
         return $query->get();
